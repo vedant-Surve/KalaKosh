@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <radialGradient id="mudWall" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#8B3520"/>
+      <stop offset="60%" stop-color="#702613"/>
+      <stop offset="100%" stop-color="#4E170A"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#mudWall)"/>
+
+  <g stroke="#FBF4E4" stroke-width="2.5" fill="none" opacity="0.85">
+    <rect x="30" y="30" width="1140" height="840" stroke-width="4"/>
+    <rect x="45" y="45" width="1110" height="810" stroke-width="1.5" stroke-dasharray="6,8"/>
+    <polygon points="45,45 85,45 45,85" fill="#FBF4E4"/>
+    <polygon points="1155,45 1115,45 1155,85" fill="#FBF4E4"/>
+    <polygon points="45,855 85,855 45,815" fill="#FBF4E4"/>
+    <polygon points="1155,855 1115,855 1155,815" fill="#FBF4E4"/>
+  </g>
+
+  <!-- 1. THE SACRED MAHADEV TREE OF LIFE -->
+  <g id="mahadev-tree" stroke="#FBF4E4" fill="#FBF4E4">
+    <line x1="580" y1="520" x2="580" y2="220" stroke-width="8" stroke-linecap="round"/>
+    <line x1="580" y1="520" x2="550" y2="560" stroke-width="5"/>
+    <line x1="580" y1="520" x2="610" y2="560" stroke-width="5"/>
+    <line x1="580" y1="520" x2="580" y2="570" stroke-width="5"/>
+
+    <polygon points="580,160 520,230 640,230"/>
+    <polygon points="580,210 500,290 660,290"/>
+    <polygon points="580,270 470,360 690,360"/>
+    <polygon points="580,340 440,440 720,440"/>
+
+    <g stroke-width="3" fill="none">
+      <path d="M580,250 Q500,220 450,250"/>
+      <path d="M580,250 Q660,220 710,250"/>
+      <path d="M580,320 Q460,290 400,340"/>
+      <path d="M580,320 Q700,290 760,340"/>
+      <path d="M580,400 Q430,380 370,430"/>
+      <path d="M580,400 Q730,380 790,430"/>
+    </g>
+
+    <g transform="translate(440, 240)">
+      <polygon points="0,0 15,-8 10,6" fill="#FBF4E4"/>
+      <line x1="15" y1="-8" x2="22" y2="-12" stroke-width="2"/>
+    </g>
+    <g transform="translate(710, 240) scale(-1, 1)">
+      <polygon points="0,0 15,-8 10,6" fill="#FBF4E4"/>
+      <line x1="15" y1="-8" x2="22" y2="-12" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- 2. THE SACRED SUN -->
+  <g id="sacred-sun" transform="translate(890, 160)">
+    <circle cx="0" cy="0" r="28" fill="#FBF4E4"/>
+    <circle cx="0" cy="0" r="42" stroke="#FBF4E4" stroke-width="2.5" fill="none" stroke-dasharray="4,6"/>
+    <circle cx="0" cy="0" r="56" stroke="#FBF4E4" stroke-width="2" fill="none"/>
+    <g stroke="#FBF4E4" stroke-width="3">
+      <line x1="0" y1="-56" x2="0" y2="-76"/>
+      <line x1="0" y1="56" x2="0" y2="76"/>
+      <line x1="-56" y1="0" x2="-76" y2="0"/>
+      <line x1="56" y1="0" x2="76" y2="0"/>
+      <line x1="-40" y1="-40" x2="-55" y2="-55"/>
+      <line x1="40" y1="-40" x2="55" y2="-55"/>
+      <line x1="-40" y1="40" x2="-55" y2="55"/>
+      <line x1="40" y1="40" x2="55" y2="55"/>
+    </g>
+  </g>
+
+  <!-- 3. THE SPIRAL TARPA DANCE CIRCLE -->
+  <g id="tarpa-dance-circle">
+    <g transform="translate(360, 560)">
+      <circle cx="0" cy="-28" r="6" fill="#FBF4E4"/>
+      <polygon points="0,-22 -10,-8 10,-8" fill="#FBF4E4"/>
+      <polygon points="0,6 -10,-8 10,-8" fill="#FBF4E4"/>
+      <line x1="0" y1="6" x2="-8" y2="24" stroke="#FBF4E4" stroke-width="2.5"/>
+      <line x1="0" y1="6" x2="8" y2="24" stroke="#FBF4E4" stroke-width="2.5"/>
+      <path d="M -4,-14 Q -25,-30 -45,-40" stroke="#FBF4E4" stroke-width="4" fill="none"/>
+      <polygon points="-45,-40 -58,-52 -40,-50" fill="#FBF4E4"/>
+    </g>
+
+    <g id="ring1" transform="translate(360, 560)">
+      <circle cx="0" cy="0" r="80" stroke="#FBF4E4" stroke-width="2" fill="none" stroke-dasharray="8,10"/>
+      <g transform="rotate(0) translate(0, -80)">
+        <circle cx="0" cy="-18" r="5" fill="#FBF4E4"/>
+        <polygon points="0,-14 -8,-3 8,-3" fill="#FBF4E4"/>
+        <polygon points="0,8 -8,-3 8,-3" fill="#FBF4E4"/>
+        <line x1="0" y1="8" x2="-6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+        <line x1="0" y1="8" x2="6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+      </g>
+      <g transform="rotate(45) translate(0, -80)">
+        <circle cx="0" cy="-18" r="5" fill="#FBF4E4"/>
+        <polygon points="0,-14 -8,-3 8,-3" fill="#FBF4E4"/>
+        <polygon points="0,8 -8,-3 8,-3" fill="#FBF4E4"/>
+        <line x1="0" y1="8" x2="-6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+        <line x1="0" y1="8" x2="6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+      </g>
+      <g transform="rotate(90) translate(0, -80)">
+        <circle cx="0" cy="-18" r="5" fill="#FBF4E4"/>
+        <polygon points="0,-14 -8,-3 8,-3" fill="#FBF4E4"/>
+        <polygon points="0,8 -8,-3 8,-3" fill="#FBF4E4"/>
+        <line x1="0" y1="8" x2="-6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+        <line x1="0" y1="8" x2="6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+      </g>
+      <g transform="rotate(135) translate(0, -80)">
+        <circle cx="0" cy="-18" r="5" fill="#FBF4E4"/>
+        <polygon points="0,-14 -8,-3 8,-3" fill="#FBF4E4"/>
+        <polygon points="0,8 -8,-3 8,-3" fill="#FBF4E4"/>
+        <line x1="0" y1="8" x2="-6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+        <line x1="0" y1="8" x2="6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+      </g>
+      <g transform="rotate(180) translate(0, -80)">
+        <circle cx="0" cy="-18" r="5" fill="#FBF4E4"/>
+        <polygon points="0,-14 -8,-3 8,-3" fill="#FBF4E4"/>
+        <polygon points="0,8 -8,-3 8,-3" fill="#FBF4E4"/>
+        <line x1="0" y1="8" x2="-6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+        <line x1="0" y1="8" x2="6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+      </g>
+      <g transform="rotate(225) translate(0, -80)">
+        <circle cx="0" cy="-18" r="5" fill="#FBF4E4"/>
+        <polygon points="0,-14 -8,-3 8,-3" fill="#FBF4E4"/>
+        <polygon points="0,8 -8,-3 8,-3" fill="#FBF4E4"/>
+        <line x1="0" y1="8" x2="-6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+        <line x1="0" y1="8" x2="6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+      </g>
+      <g transform="rotate(270) translate(0, -80)">
+        <circle cx="0" cy="-18" r="5" fill="#FBF4E4"/>
+        <polygon points="0,-14 -8,-3 8,-3" fill="#FBF4E4"/>
+        <polygon points="0,8 -8,-3 8,-3" fill="#FBF4E4"/>
+        <line x1="0" y1="8" x2="-6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+        <line x1="0" y1="8" x2="6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+      </g>
+      <g transform="rotate(315) translate(0, -80)">
+        <circle cx="0" cy="-18" r="5" fill="#FBF4E4"/>
+        <polygon points="0,-14 -8,-3 8,-3" fill="#FBF4E4"/>
+        <polygon points="0,8 -8,-3 8,-3" fill="#FBF4E4"/>
+        <line x1="0" y1="8" x2="-6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+        <line x1="0" y1="8" x2="6" y2="22" stroke="#FBF4E4" stroke-width="2"/>
+      </g>
+    </g>
+
+    <g id="ring2" transform="translate(360, 560)">
+      <circle cx="0" cy="0" r="145" stroke="#FBF4E4" stroke-width="2" fill="none" stroke-dasharray="10,14"/>
+      <g transform="rotate(0) translate(0, -145)"><circle cx="0" cy="-18" r="5.5" fill="#FBF4E4"/><polygon points="0,-14 -9,-3 9,-3" fill="#FBF4E4"/><polygon points="0,8 -9,-3 9,-3" fill="#FBF4E4"/><line x1="0" y1="8" x2="-7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/><line x1="0" y1="8" x2="7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/></g>
+      <g transform="rotate(45) translate(0, -145)"><circle cx="0" cy="-18" r="5.5" fill="#FBF4E4"/><polygon points="0,-14 -9,-3 9,-3" fill="#FBF4E4"/><polygon points="0,8 -9,-3 9,-3" fill="#FBF4E4"/><line x1="0" y1="8" x2="-7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/><line x1="0" y1="8" x2="7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/></g>
+      <g transform="rotate(90) translate(0, -145)"><circle cx="0" cy="-18" r="5.5" fill="#FBF4E4"/><polygon points="0,-14 -9,-3 9,-3" fill="#FBF4E4"/><polygon points="0,8 -9,-3 9,-3" fill="#FBF4E4"/><line x1="0" y1="8" x2="-7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/><line x1="0" y1="8" x2="7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/></g>
+      <g transform="rotate(135) translate(0, -145)"><circle cx="0" cy="-18" r="5.5" fill="#FBF4E4"/><polygon points="0,-14 -9,-3 9,-3" fill="#FBF4E4"/><polygon points="0,8 -9,-3 9,-3" fill="#FBF4E4"/><line x1="0" y1="8" x2="-7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/><line x1="0" y1="8" x2="7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/></g>
+      <g transform="rotate(180) translate(0, -145)"><circle cx="0" cy="-18" r="5.5" fill="#FBF4E4"/><polygon points="0,-14 -9,-3 9,-3" fill="#FBF4E4"/><polygon points="0,8 -9,-3 9,-3" fill="#FBF4E4"/><line x1="0" y1="8" x2="-7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/><line x1="0" y1="8" x2="7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/></g>
+      <g transform="rotate(225) translate(0, -145)"><circle cx="0" cy="-18" r="5.5" fill="#FBF4E4"/><polygon points="0,-14 -9,-3 9,-3" fill="#FBF4E4"/><polygon points="0,8 -9,-3 9,-3" fill="#FBF4E4"/><line x1="0" y1="8" x2="-7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/><line x1="0" y1="8" x2="7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/></g>
+      <g transform="rotate(270) translate(0, -145)"><circle cx="0" cy="-18" r="5.5" fill="#FBF4E4"/><polygon points="0,-14 -9,-3 9,-3" fill="#FBF4E4"/><polygon points="0,8 -9,-3 9,-3" fill="#FBF4E4"/><line x1="0" y1="8" x2="-7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/><line x1="0" y1="8" x2="7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/></g>
+      <g transform="rotate(315) translate(0, -145)"><circle cx="0" cy="-18" r="5.5" fill="#FBF4E4"/><polygon points="0,-14 -9,-3 9,-3" fill="#FBF4E4"/><polygon points="0,8 -9,-3 9,-3" fill="#FBF4E4"/><line x1="0" y1="8" x2="-7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/><line x1="0" y1="8" x2="7" y2="24" stroke="#FBF4E4" stroke-width="2.2"/></g>
+    </g>
+  </g>
+
+  <!-- 4. HARVEST & VILLAGE LIFE -->
+  <g id="bullock-cart" transform="translate(880, 680)">
+    <g transform="translate(-80, 0)">
+      <polygon points="0,0 25,-12 25,12" fill="#FBF4E4"/>
+      <polygon points="50,0 25,-12 25,12" fill="#FBF4E4"/>
+      <polygon points="50,0 65,-8 60,6" fill="#FBF4E4"/>
+      <path d="M 60,-8 Q 70,-25 60,-35" stroke="#FBF4E4" stroke-width="3" fill="none"/>
+      <line x1="10" y1="10" x2="8" y2="35" stroke="#FBF4E4" stroke-width="2.5"/>
+      <line x1="18" y1="10" x2="16" y2="35" stroke="#FBF4E4" stroke-width="2.5"/>
+      <line x1="40" y1="10" x2="38" y2="35" stroke="#FBF4E4" stroke-width="2.5"/>
+      <line x1="48" y1="10" x2="46" y2="35" stroke="#FBF4E4" stroke-width="2.5"/>
+    </g>
+    <circle cx="-10" cy="20" r="32" stroke="#FBF4E4" stroke-width="4" fill="none"/>
+    <circle cx="-10" cy="20" r="6" fill="#FBF4E4"/>
+    <line x1="-42" y1="20" x2="22" y2="20" stroke="#FBF4E4" stroke-width="2"/>
+    <line x1="-10" y1="-12" x2="-10" y2="52" stroke="#FBF4E4" stroke-width="2"/>
+  </g>
+</svg>
