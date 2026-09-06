@@ -17,7 +17,7 @@ export default function Login() {
       const user = await login(form.email, form.password);
       navigate(user.role === "Admin" ? "/admin" : "/");
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Invalid credentials. Please verify email and password.");
     } finally {
       setSubmitting(false);
     }
@@ -28,21 +28,21 @@ export default function Login() {
   };
 
   return (
-    <div className="max-w-md mx-auto py-12 px-4">
-      <div className="bg-white rounded-3xl border border-earth-900/10 shadow-lift p-8 sm:p-10 relative overflow-hidden">
-        {/* Subtle decorative background */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-terracotta/10 to-amber-500/10 rounded-full blur-2xl pointer-events-none" />
-
+    <div className="max-w-md mx-auto py-14 px-4">
+      <div className="bg-white rounded-3xl border border-earth-900/10 shadow-card p-8 sm:p-10 relative overflow-hidden">
         {/* Brand header */}
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-terracotta to-amber-accent flex items-center justify-center shadow-md mx-auto mb-3">
-            <span className="text-2xl">🏺</span>
+          <div className="w-12 h-12 rounded-2xl bg-earth-900 text-parchment flex items-center justify-center font-serif font-black text-xl shadow-md mx-auto mb-3">
+            K
           </div>
+          <span className="text-[10px] uppercase font-bold tracking-widest text-terracotta mb-1 block">
+            National Cultural Archive
+          </span>
           <h1 className="font-serif text-2xl sm:text-3xl font-black text-earth-900">
-            Welcome Back
+            Sign In to KalaKosh
           </h1>
           <p className="text-xs text-earth-600 mt-1">
-            Sign in to access your KalaKosh curator & contributor account.
+            Access your curator, researcher, or contributor portal.
           </p>
         </div>
 
@@ -62,7 +62,7 @@ export default function Login() {
             <input
               type="email"
               required
-              placeholder="you@kalakosh.org"
+              placeholder="admin@kalakosh.org"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               className="input-cultural"
@@ -70,9 +70,11 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-earth-800 uppercase tracking-wider mb-1.5">
-              Password
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-bold text-earth-800 uppercase tracking-wider">
+                Password
+              </label>
+            </div>
             <input
               type="password"
               required
@@ -86,20 +88,29 @@ export default function Login() {
           <button
             type="submit"
             disabled={submitting}
-            className="btn btn-primary btn-md w-full justify-center text-sm font-bold shadow-md mt-2"
+            className="btn btn-primary btn-md w-full justify-center text-xs font-bold tracking-wider uppercase shadow-md mt-2"
           >
-            {submitting ? <span className="spinner" /> : "Sign In to KalaKosh"}
+            {submitting ? <span className="spinner" /> : "Sign In"}
           </button>
         </form>
 
-        {/* Quick Fill Demo Helper */}
-        <div className="mt-6 pt-5 border-t border-earth-900/10 text-center">
+        {/* Admin Quick Fill Credentials Panel */}
+        <div className="mt-6 pt-5 border-t border-earth-900/10 space-y-3">
+          <div className="bg-earth-50 rounded-2xl p-3 border border-earth-900/5 text-center">
+            <p className="text-[11px] font-bold text-earth-800 uppercase tracking-wider mb-1">
+              Curator / Admin Demo Credentials:
+            </p>
+            <p className="font-mono text-xs text-earth-900 font-semibold select-all">
+              admin@kalakosh.org / admin123
+            </p>
+          </div>
+
           <button
             type="button"
             onClick={handleQuickFillAdmin}
-            className="btn btn-secondary btn-sm text-xs w-full justify-center"
+            className="btn btn-secondary btn-sm text-xs w-full justify-center font-bold"
           >
-            ⚡ Quick Fill Admin Demo Credentials
+            Autofill Admin Credentials
           </button>
         </div>
 
@@ -113,3 +124,4 @@ export default function Login() {
     </div>
   );
 }
+

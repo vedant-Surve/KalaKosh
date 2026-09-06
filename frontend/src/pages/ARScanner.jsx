@@ -418,22 +418,20 @@ export default function ARScanner() {
       <div className="bg-white/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-earth-900/10 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-terracotta mb-2">
-            <span>✨</span>
-            <span>Real-Time Image-to-3D Spatial Reconstruction</span>
+            <span>Spatial Augmented Reality</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl font-black text-earth-900 leading-tight">
             Warli Image-to-3D AR Scanner
           </h1>
           <p className="text-xs sm:text-sm text-earth-600 mt-1 max-w-2xl">
-            Scan any Warli painting via camera or upload an image online. The computer-vision engine extracts the <strong>exact rice-paste strokes, geometry, and contours from that specific image</strong> and extrudes them into a <strong>real-time 3D depth sculpture</strong> with dynamic shadows and audio folklore!
+            Scan any Warli painting via live camera or upload an image online. The computer-vision engine extracts the <strong>exact rice-paste strokes and geometry from that specific image</strong> and reconstructs them into a <strong>real-time 3D depth sculpture</strong> with dynamic shadows and audio folklore.
           </p>
         </div>
 
         {/* Action Controls */}
         <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
           <label className="btn btn-secondary btn-sm text-xs font-bold shadow-sm cursor-pointer flex items-center gap-1.5">
-            <span>📁</span>
-            <span>Scan My Custom Image</span>
+            <span>Upload Custom Painting</span>
             <input
               type="file"
               accept="image/*"
@@ -454,12 +452,11 @@ export default function ARScanner() {
               cameraActive ? "btn-outline text-red-700" : "btn-primary shadow-md"
             }`}
           >
-            <span>📷</span>
             <span>{cameraActive ? "Stop Camera" : "Launch Camera AR"}</span>
           </button>
 
           <Link to="/scan" className="btn btn-outline btn-sm text-xs font-semibold">
-            ← QR Scanner
+            ← QR Heritage Scanner
           </Link>
         </div>
       </div>
@@ -469,7 +466,7 @@ export default function ARScanner() {
           <span>{cameraError}</span>
           <button
             onClick={() => triggerScanForArtwork(PRESET_WARLI_ARTWORKS[0])}
-            className="btn btn-primary btn-xs whitespace-nowrap"
+            className="btn btn-primary btn-xs whitespace-nowrap font-bold"
           >
             Scan Sample in 3D →
           </button>
@@ -513,31 +510,29 @@ export default function ARScanner() {
             {/* Inactive Ready Splash */}
             {!cameraActive && !simulationMode && (
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 text-center bg-earth-950/90 space-y-4">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-terracotta to-amber-accent text-white flex items-center justify-center text-4xl shadow-lg animate-pulse">
-                  🔮
+                <div className="w-16 h-16 rounded-2xl bg-earth-900 text-parchment flex items-center justify-center font-serif font-black text-2xl shadow-lg border border-white/10">
+                  AR
                 </div>
                 <div>
                   <h3 className="font-serif text-2xl font-bold text-white">
                     Image-to-3D Reconstruction Ready
                   </h3>
                   <p className="text-xs text-parchment/70 mt-1.5 max-w-md mx-auto">
-                    Point your camera at a Warli painting on a wall or select any online painting below to see its exact strokes extruded into a 3D depth mesh!
+                    Point your camera at a Warli mural on a wall, or select any online painting below to see its exact strokes extruded into a 3D depth mesh.
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                   <button
                     onClick={startCamera}
-                    className="btn btn-primary btn-md shadow-lg"
+                    className="btn btn-primary btn-md shadow-lg font-bold"
                   >
-                    <span>📷</span>
-                    <span>Start Live Camera Scan</span>
+                    Start Live Camera Scan
                   </button>
                   <button
                     onClick={() => triggerScanForArtwork(PRESET_WARLI_ARTWORKS[0])}
-                    className="btn btn-secondary btn-md shadow-lg"
+                    className="btn btn-secondary btn-md shadow-lg font-bold"
                   >
-                    <span>⚡</span>
-                    <span>Scan Online Sample 1</span>
+                    Scan Online Sample 1
                   </button>
                 </div>
               </div>
@@ -572,7 +567,7 @@ export default function ARScanner() {
                     />
                     <span>
                       {isLocked
-                        ? "✨ 3D MESH EXTRUDED FROM SCANNED STROKES"
+                        ? "3D MESH EXTRUDED FROM SCANNED STROKES"
                         : scanningState === "matching"
                         ? "EXTRACTING PIXEL HEIGHTMAP & NORMAL VECTORS..."
                         : "SEARCHING FOR WARLI MOTIFS..."}
@@ -609,7 +604,7 @@ export default function ARScanner() {
                         Computer-Vision Depth Extractor
                       </p>
                       <p className="text-[11px] text-white/90">
-                        Analyzing exact strokes of this Warli image...
+                        Analyzing strokes of this Warli image...
                       </p>
                       <div className="w-40 h-1.5 bg-white/20 rounded-full overflow-hidden mx-auto mt-2">
                         <div
@@ -634,7 +629,6 @@ export default function ARScanner() {
 
                   {isLocked && (
                     <div className="bg-emerald-950/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-emerald-400/40 text-emerald-300 font-bold text-xs flex items-center gap-1.5 shadow-lg">
-                      <span>✨</span>
                       <span>3D Mesh Built Directly From Scanned Image</span>
                     </div>
                   )}
@@ -661,7 +655,7 @@ export default function ARScanner() {
                           : "text-earth-700 hover:bg-earth-200"
                       }`}
                     >
-                      ✨ Spatial Hologram
+                      Spatial Hologram
                     </button>
                     <button
                       onClick={() => setView3DMode("relief")}
@@ -671,7 +665,7 @@ export default function ARScanner() {
                           : "text-earth-700 hover:bg-earth-200"
                       }`}
                     >
-                      🏺 3D Bas-Relief
+                      3D Bas-Relief
                     </button>
                     <button
                       onClick={() => setView3DMode("wireframe")}
@@ -681,7 +675,7 @@ export default function ARScanner() {
                           : "text-earth-700 hover:bg-earth-200"
                       }`}
                     >
-                      🕸️ 3D Mesh Grid
+                      3D Mesh Grid
                     </button>
                   </div>
                 </div>
@@ -692,7 +686,7 @@ export default function ARScanner() {
                     onClick={() => setShowDepthInspector(!showDepthInspector)}
                     className="btn btn-outline btn-sm text-xs font-bold"
                   >
-                    {showDepthInspector ? "Hide 2D vs 3D Proof" : "🔍 2D vs 3D Proof"}
+                    {showDepthInspector ? "Hide 2D vs 3D Proof" : "2D vs 3D Proof"}
                   </button>
                   <button
                     onClick={() => {
@@ -704,7 +698,7 @@ export default function ARScanner() {
                     }}
                     className="btn btn-outline btn-sm text-xs font-bold"
                   >
-                    🔄 Rescan
+                    Rescan
                   </button>
                 </div>
               </div>
@@ -712,7 +706,6 @@ export default function ARScanner() {
               {/* Real-Time Extrusion Depth Slider */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-earth-50/80 p-3 rounded-2xl border border-earth-900/5">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm">📏</span>
                   <div>
                     <p className="text-xs font-bold text-earth-900">
                       3D Stroke Relief Elevation: <span className="text-terracotta font-mono">{extrusionDepth.toFixed(1)} mm</span>
@@ -739,6 +732,7 @@ export default function ARScanner() {
               </div>
             </div>
           )}
+
 
           {/* 🔍 2D Original vs 3D Mesh Depth Proof Inspector */}
           {showDepthInspector && isLocked && (

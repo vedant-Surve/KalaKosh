@@ -191,30 +191,28 @@ export default function QRScanner() {
       <div className="bg-white/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-earth-900/10 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-terracotta mb-2">
-            <span>🏛️</span>
             <span>On-Site Heritage Explorer</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl font-black text-earth-900 leading-tight">
             Heritage Site QR Code Scanner
           </h1>
-          <p className="text-xs sm:text-sm text-earth-600 mt-1">
-            Visiting an ancient temple, rock shelter, or tribal craft village? Scan on-site QR placards to unlock deep oral history, audio guides, and explore related gallery masterworks.
+          <p className="text-xs sm:text-sm text-earth-600 mt-1 max-w-2xl">
+            Visiting a cultural sanctuary, rock art shelter, or tribal heritage village? Scan on-site QR placards to unlock historical dossiers, indigenous folklore, and view related gallery masterworks with 3D AR.
           </p>
         </div>
 
         <div className="flex items-center gap-2 self-start md:self-auto">
           <Link
             to="/ar"
-            className="btn btn-secondary btn-sm text-xs font-bold flex items-center gap-1.5 shadow-sm"
+            className="btn btn-primary btn-sm text-xs font-bold shadow-sm"
           >
-            <span>📱</span>
-            <span>Open AR Painting Scanner →</span>
+            Launch 3D AR Scanner →
           </Link>
           <button
             onClick={() => setShowGenerator(true)}
             className="btn btn-outline btn-sm text-xs font-bold"
           >
-            🖨️ Generate QR Placard
+            Generate Site QR Placard
           </button>
         </div>
       </div>
@@ -222,7 +220,6 @@ export default function QRScanner() {
       {/* ── Status or Error Flash ───────────────────────────── */}
       {statusMessage && (
         <div className="p-4 rounded-2xl bg-earth-100 border border-earth-900/10 text-earth-900 text-xs font-semibold flex items-center gap-2 shadow-sm">
-          <span>ℹ️</span>
           <span>{statusMessage}</span>
         </div>
       )}
@@ -239,14 +236,13 @@ export default function QRScanner() {
             setActiveTab("scan");
             if (!cameraActive) startCamera();
           }}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
             activeTab === "scan"
               ? "bg-terracotta text-white shadow-sm"
               : "text-earth-700 hover:bg-earth-100"
           }`}
         >
-          <span>📷</span>
-          <span>Live Camera Scan</span>
+          Live Camera Viewfinder
         </button>
 
         <button
@@ -254,14 +250,13 @@ export default function QRScanner() {
             setActiveTab("upload");
             stopCamera();
           }}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
             activeTab === "upload"
               ? "bg-terracotta text-white shadow-sm"
               : "text-earth-700 hover:bg-earth-100"
           }`}
         >
-          <span>📂</span>
-          <span>Upload QR Image</span>
+          Upload Placard Photo
         </button>
 
         <button
@@ -269,16 +264,16 @@ export default function QRScanner() {
             setActiveTab("placards");
             stopCamera();
           }}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
             activeTab === "placards"
               ? "bg-terracotta text-white shadow-sm"
               : "text-earth-700 hover:bg-earth-100"
           }`}
         >
-          <span>🏷️</span>
-          <span>Sample Heritage Placards ({allSites.length})</span>
+          Verified Heritage Sites ({allSites.length})
         </button>
       </div>
+
 
       {/* ══════════════════════════════════════════════════════════
          VIEWPORT SECTION: SCANNER OR PRESET SELECTOR

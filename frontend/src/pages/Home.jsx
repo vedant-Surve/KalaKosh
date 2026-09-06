@@ -21,19 +21,16 @@ const WarliDivider = () => (
 );
 
 /* ── Stat Card Component ──────────────────────────────────────────────── */
-function StatCard({ icon, value, label, subtext }) {
+function StatCard({ value, label, subtext }) {
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 border border-earth-900/10 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
-      <div className="flex items-center gap-3 mb-2">
-        <span className="text-2xl p-2.5 rounded-xl bg-earth-50 border border-earth-900/5">{icon}</span>
-        <div>
-          <p className="font-serif text-3xl font-black text-earth-900 leading-none">
-            {value ?? "—"}
-          </p>
-          <p className="text-xs font-bold uppercase tracking-wider text-terracotta mt-1">
-            {label}
-          </p>
-        </div>
+    <div className="bg-white/90 backdrop-blur-md rounded-2xl p-5 border border-earth-900/10 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+      <div>
+        <p className="font-serif text-3xl font-black text-earth-900 leading-none">
+          {value ?? "—"}
+        </p>
+        <p className="text-xs font-bold uppercase tracking-wider text-terracotta mt-2">
+          {label}
+        </p>
       </div>
       {subtext && <p className="text-xs text-earth-600 mt-2 font-medium">{subtext}</p>}
     </div>
@@ -58,23 +55,21 @@ function ArtworkCard({ art, artFormName }) {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-earth-900/80 via-earth-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-          <span className="text-white text-xs font-bold bg-terracotta px-3 py-1.5 rounded-full shadow-md flex items-center gap-1">
+          <span className="text-white text-xs font-bold bg-terracotta px-3.5 py-1.5 rounded-full shadow-md">
             Explore Motifs & Stories →
           </span>
         </div>
 
         {/* Region Chip */}
         {art.region && (
-          <div className="absolute top-3 left-3 bg-parchment/95 backdrop-blur-sm text-earth-900 text-xs font-semibold px-2.5 py-1 rounded-full border border-earth-900/10 shadow-sm flex items-center gap-1">
-            <span>📍</span>
+          <div className="absolute top-3 left-3 bg-parchment/95 backdrop-blur-sm text-earth-900 text-xs font-semibold px-2.5 py-1 rounded-full border border-earth-900/10 shadow-sm">
             <span>{art.region}</span>
           </div>
         )}
 
         {/* Hotspot Count Indicator */}
-        <div className="absolute top-3 right-3 bg-amber-accent text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-          <span>🎯</span>
-          <span>{art.hotspot_count} motif{art.hotspot_count !== 1 ? "s" : ""}</span>
+        <div className="absolute top-3 right-3 bg-earth-900 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+          <span>{art.hotspot_count} Motifs</span>
         </div>
       </div>
 
@@ -95,10 +90,10 @@ function ArtworkCard({ art, artFormName }) {
         </div>
 
         <div className="pt-4 mt-4 border-t border-earth-900/5 flex items-center justify-between text-xs font-semibold text-terracotta">
-          <span className="group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+          <span className="group-hover:translate-x-0.5 transition-transform">
             Interactive Canvas
           </span>
-          <span className="text-earth-400 group-hover:text-terracotta">→</span>
+          <span>→</span>
         </div>
       </div>
     </Link>
@@ -141,8 +136,8 @@ export default function Home() {
 
   const promptSuggestions = [
     "What is the cultural meaning of the Tarpa Dance in Warli art?",
-    "How are natural pigments made from rice and soot?",
-    "What is the story behind the Sacred Harvest Tree motif?",
+    "How are natural pigments prepared from rice paste and charcoal?",
+    "What is the oral folklore behind the Sacred Mahadev Tree motif?",
     "How does KalaKosh verify tribal folklore contributions?",
   ];
 
@@ -161,9 +156,8 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center relative z-10">
           {/* Tagline Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-terracotta/25 shadow-sm mb-6 fade-up">
-            <span className="text-terracotta font-bold text-xs">🌿</span>
             <span className="text-xs uppercase font-bold tracking-widest text-earth-800">
-              Living Digital Archive of Indigenous India
+              National Living Archive of Indigenous Art & Folklore
             </span>
           </div>
 
@@ -177,44 +171,38 @@ export default function Home() {
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg text-earth-700 max-w-2xl mx-auto mb-10 leading-relaxed font-normal fade-up">
-            Immerse yourself in India’s sacred tribal traditions. Click interactive symbol hotspots,
-            listen to authentic native-language oral folklore, and converse with{" "}
-            <strong className="text-earth-900 font-semibold">Pratyaksha AI</strong>, your intelligent cultural companion.
+            Preserving indigenous Indian heritage through high-resolution masterworks, spatial 3D computer-vision reconstruction, native oral folklore, and on-site heritage QR exploration.
           </p>
 
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-4 fade-up">
-            <a href="#living-archive" className="btn btn-primary btn-lg shadow-md">
-              <span>🏛️</span>
-              <span>Explore Curated Archive</span>
+            <a href="#living-archive" className="btn btn-primary btn-lg shadow-md font-bold">
+              Explore Curated Archive
             </a>
-            <Link to="/ar" className="btn btn-secondary btn-lg shadow-sm hover:border-terracotta flex items-center gap-2">
-              <span>📱</span>
-              <span>Launch AR Experience</span>
+            <Link to="/ar" className="btn btn-secondary btn-lg shadow-sm hover:border-terracotta font-bold">
+              3D AR Scanner
             </Link>
-            <Link to="/scan" className="btn btn-outline btn-lg shadow-sm hover:border-terracotta flex items-center gap-2">
-              <span>🏷️</span>
-              <span>QR Heritage Scanner</span>
+            <Link to="/scan" className="btn btn-outline btn-lg shadow-sm hover:border-terracotta font-bold">
+              QR Heritage Sites
             </Link>
           </div>
 
           {/* Feature Highlights Pill Strip */}
           <div className="mt-12 pt-8 border-t border-earth-900/10 grid grid-cols-2 md:grid-cols-4 gap-3 text-left">
-            <Link to="/ar" className="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 border border-earth-900/5 hover:border-terracotta transition-colors">
-              <span className="text-lg">📱</span>
-              <span className="text-xs font-semibold text-earth-800">AR Warli Camera Scanner</span>
+            <Link to="/ar" className="flex items-center gap-2 p-3 rounded-xl bg-white/70 border border-earth-900/5 hover:border-terracotta transition-colors shadow-sm">
+              <span className="text-xs font-bold uppercase tracking-wider text-earth-800">3D Spatial Scanner</span>
             </Link>
-            <Link to="/scan" className="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 border border-earth-900/5 hover:border-terracotta transition-colors">
-              <span className="text-lg">🏷️</span>
-              <span className="text-xs font-semibold text-earth-800">Heritage Site QR Placards</span>
+            <Link to="/scan" className="flex items-center gap-2 p-3 rounded-xl bg-white/70 border border-earth-900/5 hover:border-terracotta transition-colors shadow-sm">
+              <span className="text-xs font-bold uppercase tracking-wider text-earth-800">On-Site QR Placards</span>
             </Link>
-            <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 border border-earth-900/5">
-              <span className="text-lg">🤖</span>
-              <span className="text-xs font-semibold text-earth-800">Pratyaksha Cultural AI</span>
+            <div
+              onClick={() => handleAskAI()}
+              className="cursor-pointer flex items-center gap-2 p-3 rounded-xl bg-white/70 border border-earth-900/5 hover:border-terracotta transition-colors shadow-sm"
+            >
+              <span className="text-xs font-bold uppercase tracking-wider text-earth-800">Pratyaksha AI Guide</span>
             </div>
-            <Link to="/contribute" className="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 border border-earth-900/5 hover:border-terracotta transition-colors">
-              <span className="text-lg">🛡️</span>
-              <span className="text-xs font-semibold text-earth-800">Verified Folklore Cards</span>
+            <Link to="/contribute" className="flex items-center gap-2 p-3 rounded-xl bg-white/70 border border-earth-900/5 hover:border-terracotta transition-colors shadow-sm">
+              <span className="text-xs font-bold uppercase tracking-wider text-earth-800">Folklore Peer Review</span>
             </Link>
           </div>
         </div>
@@ -223,28 +211,24 @@ export default function Home() {
       {/* ── 2. Living Archive Metrics Strip ───────────────────────── */}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          icon="🎨"
-          value={artForms.length || "1+"}
+          value={artForms.length || "1"}
           label="Art Traditions"
-          subtext="Warli, Madhubani, Gond & more"
+          subtext="Warli, Madhubani, Gond & regional styles"
         />
         <StatCard
-          icon="🖼️"
-          value={artworks.length || "1+"}
+          value={artworks.length || "3+"}
           label="Curated Works"
           subtext="High-resolution digital masterworks"
         />
         <StatCard
-          icon="🎯"
-          value={totalHotspots || "3+"}
+          value={totalHotspots || "8+"}
           label="Ancestral Motifs"
-          subtext="Interactive symbol hotspots"
+          subtext="Interactive symbol coordinate hotspots"
         />
         <StatCard
-          icon="📖"
-          value="Living"
-          label="Oral Histories"
-          subtext="Preserved native language narratives"
+          value="Verified"
+          label="Oral Narratives"
+          subtext="Preserved native dialect audio recordings"
         />
       </section>
 
@@ -256,7 +240,7 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-terracotta mb-1">
-              <span>🏺</span> Curated Repository
+              Curated Repository
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-black text-earth-900">
               The Living Archive
@@ -267,7 +251,7 @@ export default function Home() {
           </div>
           <Link
             to="/gallery"
-            className="btn btn-outline btn-sm self-start sm:self-auto"
+            className="btn btn-outline btn-sm self-start sm:self-auto font-bold"
           >
             View Complete Gallery →
           </Link>
@@ -277,7 +261,7 @@ export default function Home() {
         <div className="flex flex-wrap items-center gap-2 p-2 bg-white/60 rounded-2xl border border-earth-900/10">
           <button
             onClick={() => setActiveArtFormId(null)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
               activeArtFormId === null
                 ? "bg-terracotta text-white shadow-sm"
                 : "bg-white text-earth-800 hover:bg-earth-100 border border-earth-900/10"
@@ -292,7 +276,7 @@ export default function Home() {
               <button
                 key={form.id}
                 onClick={() => setActiveArtFormId(form.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
                   active
                     ? "bg-terracotta text-white shadow-sm"
                     : "bg-white text-earth-800 hover:bg-earth-100 border border-earth-900/10"
@@ -323,7 +307,6 @@ export default function Home() {
           </div>
         ) : filteredArtworks.length === 0 ? (
           <div className="text-center py-16 bg-white/50 rounded-2xl border border-earth-900/10">
-            <p className="text-4xl mb-3">🏺</p>
             <p className="font-semibold text-earth-700">No artworks curated for this tradition yet.</p>
           </div>
         ) : (
@@ -340,37 +323,35 @@ export default function Home() {
       </section>
 
       {/* ── 4. Pratyaksha AI Cultural Assistant Spotlight ───────────── */}
-      <section className="relative rounded-3xl p-8 sm:p-12 overflow-hidden bg-gradient-to-br from-earth-900 via-indigo-950 to-earth-900 text-white shadow-xl">
+      <section className="relative rounded-3xl p-8 sm:p-12 overflow-hidden bg-earth-950 text-white shadow-xl">
         <div className="absolute inset-0 warli-bg opacity-10 pointer-events-none" />
         <div className="relative z-10 max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-bold uppercase tracking-wider text-amber-300 mb-4 backdrop-blur">
-            <span>✨</span>
-            <span>Intelligent Cultural Guide</span>
+            <span>Indigenous Intelligence</span>
           </div>
 
           <h2 className="font-serif text-3xl sm:text-5xl font-black text-white mb-4">
-            Meet Pratyaksha — Your Cultural Companion
+            Meet Pratyaksha — Cultural AI Companion
           </h2>
 
           <p className="text-sm sm:text-base text-parchment/80 mb-8 leading-relaxed font-light">
-            Have a question about tribal cosmology, wedding rituals, or natural pigment techniques?
-            Pratyaksha is trained on community lore and oral archives to offer deep, grounded cultural insights.
+            Have a question regarding tribal cosmology, ritual symbolism, natural pigments, or folklore narratives?
+            Pratyaksha is grounded in indigenous archival research and oral histories.
           </p>
 
           {/* Prompt chips */}
           <div className="mb-8">
             <p className="text-xs uppercase font-bold tracking-wider text-amber-200/70 mb-3">
-              Click a sample inquiry to start conversation:
+              Sample inquiries to explore:
             </p>
             <div className="flex flex-wrap gap-2">
               {promptSuggestions.map((prompt, i) => (
                 <button
                   key={i}
                   onClick={() => handleAskAI(prompt)}
-                  className="text-left text-xs bg-white/10 hover:bg-white/20 text-parchment px-3.5 py-2 rounded-xl border border-white/15 transition-all hover:scale-[1.02] flex items-center gap-1.5"
+                  className="text-left text-xs bg-white/10 hover:bg-white/20 text-parchment px-3.5 py-2 rounded-xl border border-white/15 transition-all hover:scale-[1.01]"
                 >
-                  <span className="text-amber-300 font-bold">💬</span>
-                  <span>"{prompt}"</span>
+                  "{prompt}"
                 </button>
               ))}
             </div>
@@ -380,33 +361,29 @@ export default function Home() {
             onClick={() => handleAskAI()}
             className="btn btn-primary btn-lg shadow-lg font-bold"
           >
-            <span>✨</span>
-            <span>Launch Pratyaksha AI Chat</span>
+            Launch Pratyaksha AI Chat
           </button>
         </div>
       </section>
 
       {/* ── 5. Cultural Preservation Ethics Pillars ─────────────────── */}
       <section className="grid md:grid-cols-3 gap-6 pt-4">
-        <div className="p-6 bg-white/70 rounded-2xl border border-earth-900/10 shadow-sm space-y-2">
-          <span className="text-3xl">🛡️</span>
+        <div className="p-6 bg-white/80 rounded-2xl border border-earth-900/10 shadow-sm space-y-2">
           <h3 className="font-serif text-lg font-bold text-earth-900">Community Sovereignty</h3>
           <p className="text-xs text-earth-700 leading-relaxed">
-            All folklore is attributed and preserved in collaboration with indigenous master artisans.
+            All folklore is attributed and preserved in direct collaboration with indigenous master artisans and community elders.
           </p>
         </div>
-        <div className="p-6 bg-white/70 rounded-2xl border border-earth-900/10 shadow-sm space-y-2">
-          <span className="text-3xl">🎙️</span>
-          <h3 className="font-serif text-lg font-bold text-earth-900">Native Oral Dialects</h3>
+        <div className="p-6 bg-white/80 rounded-2xl border border-earth-900/10 shadow-sm space-y-2">
+          <h3 className="font-serif text-lg font-bold text-earth-900">Native Oral Recordings</h3>
           <p className="text-xs text-earth-700 leading-relaxed">
-            Stories are recorded in native vernacular dialects alongside English and Hindi transcripts.
+            Stories are recorded in native vernacular dialects alongside English and Hindi verified transcripts.
           </p>
         </div>
-        <div className="p-6 bg-white/70 rounded-2xl border border-earth-900/10 shadow-sm space-y-2">
-          <span className="text-3xl">🔍</span>
-          <h3 className="font-serif text-lg font-bold text-earth-900">High-Fidelity Hotspots</h3>
+        <div className="p-6 bg-white/80 rounded-2xl border border-earth-900/10 shadow-sm space-y-2">
+          <h3 className="font-serif text-lg font-bold text-earth-900">Spatial AR Reconstruction</h3>
           <p className="text-xs text-earth-700 leading-relaxed">
-            Every motif is annotated with percentage coordinates for millimeter-precise visual exploration.
+            Every motif is annotated with percentage coordinates and computer-vision 3D depth extrusion.
           </p>
         </div>
       </section>
@@ -414,13 +391,14 @@ export default function Home() {
       {/* ── 6. Cultural Preservation Footer ────────────────────────── */}
       <footer className="pt-12 border-t border-earth-900/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-earth-600">
         <div className="flex items-center gap-2">
-          <span className="text-lg">🏺</span>
           <span className="font-serif font-bold text-earth-900 text-sm">KalaKosh</span>
-          <span>— Living Archive of Indigenous Art</span>
+          <span>— National Living Archive of Indigenous Art</span>
         </div>
         <div className="flex items-center gap-4">
           <Link to="/" className="hover:text-terracotta">Home</Link>
-          <Link to="/gallery" className="hover:text-terracotta">Gallery</Link>
+          <Link to="/gallery" className="hover:text-terracotta">Tradition Gallery</Link>
+          <Link to="/ar" className="hover:text-terracotta">3D AR Scanner</Link>
+          <Link to="/scan" className="hover:text-terracotta">QR Heritage</Link>
           <button onClick={() => handleAskAI()} className="hover:text-terracotta font-semibold text-terracotta">
             Pratyaksha AI
           </button>

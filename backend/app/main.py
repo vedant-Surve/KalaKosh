@@ -4,12 +4,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from .database import Base, engine
+from .database import Base, engine, SessionLocal
 from .config import settings
 from .routers import auth, public, admin, chat
+from .seed import seed
 
-# Create tables if they don't exist yet (safe no-op on subsequent boots).
-# For production schema evolution, use Alembic migrations instead.
+# Create tables if they don't exist yet
 Base.metadata.create_all(bind=engine)
 
 os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
@@ -19,6 +19,14 @@ app = FastAPI(
     description="Cultural heritage preservation platform — Warli Art and beyond.",
     version="2.0.0",
 )
+
+@app.on_event("startup")
+def on_startup():
+    # Automatically ensure admin account and seed data exist
+    try:
+        seed()
+    except Exception as e:
+        print("Startup seed notice:", e)
 
 app.add_middleware(
     CORSMiddleware,
@@ -50,3 +58,4 @@ app.include_router(chat.router)
 @app.get("/")
 def health_check():
     return {"status": "ok", "service": "KalaKosh API", "version": "2.0.0"}
+

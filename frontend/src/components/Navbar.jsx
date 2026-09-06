@@ -15,57 +15,51 @@ export default function Navbar() {
 
   const navLinkClass = (path) => {
     const active = isActive(path);
-    return `relative px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+    return `relative px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
       active
-        ? "bg-earth-100 text-terracotta shadow-sm"
-        : "text-earth-800/80 hover:text-earth-900 hover:bg-earth-50"
+        ? "bg-terracotta text-white shadow-sm"
+        : "text-earth-800/80 hover:text-earth-950 hover:bg-earth-100/70"
     }`;
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-parchment/90 backdrop-blur-md border-b border-earth-900/10">
+    <header className="sticky top-0 z-50 bg-parchment/95 backdrop-blur-md border-b border-earth-900/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-terracotta to-amber-accent flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-            <span className="text-xl">🏺</span>
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="w-9 h-9 rounded-xl bg-earth-900 text-parchment flex items-center justify-center font-serif font-black text-lg shadow-sm group-hover:bg-terracotta transition-colors">
+            K
           </div>
           <div className="flex flex-col">
             <span className="font-serif text-2xl font-black tracking-tight text-earth-900 leading-none">
               Kala<span className="text-terracotta">Kosh</span>
             </span>
-            <span className="text-[10px] uppercase font-bold tracking-widest text-earth-600 mt-0.5">
-              Living Indigenous Archive
+            <span className="text-[9px] uppercase font-bold tracking-widest text-earth-600 mt-0.5">
+              National Tribal Heritage Archive
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-white/70 p-1 rounded-full border border-earth-900/10 shadow-sm backdrop-blur">
+        <nav className="hidden md:flex items-center gap-1 bg-white/80 p-1 rounded-full border border-earth-900/10 shadow-sm backdrop-blur">
           <Link to="/" className={navLinkClass("/")}>
-            <span>🏛️</span>
-            <span>Home</span>
+            Home
           </Link>
           <Link to="/gallery" className={navLinkClass("/gallery")}>
-            <span>🎨</span>
-            <span>Gallery</span>
+            Tradition Gallery
           </Link>
           <Link to="/ar" className={navLinkClass("/ar")}>
-            <span>📱</span>
-            <span>AR Experience</span>
+            3D AR Scanner
           </Link>
           <Link to="/scan" className={navLinkClass("/scan")}>
-            <span>🏷️</span>
-            <span>QR Heritage</span>
+            QR Heritage Sites
           </Link>
           <Link to="/contribute" className={navLinkClass("/contribute")}>
-            <span>✍️</span>
-            <span>Contribute</span>
+            Folklore Archive
           </Link>
           {user?.role === "Admin" && (
             <Link to="/admin" className={navLinkClass("/admin")}>
-              <span>⚙️</span>
-              <span>Curatorial Deck</span>
+              Curatorial Deck
             </Link>
           )}
         </nav>
@@ -75,19 +69,19 @@ export default function Navbar() {
           {/* Ask AI quick pill */}
           <button
             onClick={() => document.dispatchEvent(new CustomEvent("open-pratyaksha"))}
-            className="btn btn-sm text-xs font-bold px-3.5 py-1.5 bg-gradient-to-r from-amber-500/15 to-terracotta/15 text-earth-900 border border-amber-accent/30 hover:border-terracotta hover:bg-amber-accent/20 transition-all rounded-full"
+            className="btn btn-sm text-xs font-bold px-3.5 py-1.5 bg-earth-900 text-parchment hover:bg-terracotta transition-all rounded-full shadow-sm"
             title="Open Pratyaksha AI Cultural Assistant"
           >
-            <span className="animate-pulse">✨</span> Ask Pratyaksha AI
+            Pratyaksha AI Guide
           </button>
 
           {user ? (
             <div className="flex items-center gap-2.5 pl-2 border-l border-earth-900/15">
-              <div className="flex items-center gap-2 bg-white/80 py-1 pl-1.5 pr-3 rounded-full border border-earth-900/10 shadow-sm">
+              <div className="flex items-center gap-2 bg-white/90 py-1 pl-1.5 pr-3 rounded-full border border-earth-900/10 shadow-sm">
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-inner ${
                     user.role === "Admin"
-                      ? "bg-indigo-700"
+                      ? "bg-earth-900"
                       : user.is_verified
                       ? "bg-teal-700"
                       : "bg-terracotta"
@@ -159,35 +153,35 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               className={navLinkClass("/")}
             >
-              <span>🏛️</span> Home
+              Home
             </Link>
             <Link
               to="/gallery"
               onClick={() => setMobileOpen(false)}
               className={navLinkClass("/gallery")}
             >
-              <span>🎨</span> Gallery of Traditions
+              Tradition Gallery
             </Link>
             <Link
               to="/ar"
               onClick={() => setMobileOpen(false)}
               className={navLinkClass("/ar")}
             >
-              <span>📱</span> AR Warli Experience
+              3D AR Scanner
             </Link>
             <Link
               to="/scan"
               onClick={() => setMobileOpen(false)}
               className={navLinkClass("/scan")}
             >
-              <span>🏷️</span> QR Heritage Scanner
+              QR Heritage Sites
             </Link>
             <Link
               to="/contribute"
               onClick={() => setMobileOpen(false)}
               className={navLinkClass("/contribute")}
             >
-              <span>✍️</span> Community Contributions
+              Folklore Archive
             </Link>
             {user?.role === "Admin" && (
               <Link
@@ -195,7 +189,7 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className={navLinkClass("/admin")}
               >
-                <span>⚙️</span> Curatorial Deck
+                Curatorial Deck
               </Link>
             )}
           </nav>
@@ -206,9 +200,9 @@ export default function Navbar() {
                 document.dispatchEvent(new CustomEvent("open-pratyaksha"));
                 setMobileOpen(false);
               }}
-              className="w-full btn btn-amber btn-sm justify-center text-xs py-2"
+              className="w-full btn btn-primary btn-sm justify-center text-xs py-2"
             >
-              ✨ Ask Pratyaksha AI Guide
+              Pratyaksha AI Guide
             </button>
 
             {user ? (
@@ -257,3 +251,4 @@ export default function Navbar() {
     </header>
   );
 }
+
