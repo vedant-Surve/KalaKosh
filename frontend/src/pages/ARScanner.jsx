@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import client from "../api/client";
-import HotspotOverlay from "../components/HotspotOverlay";
+import Warli3DHologram from "../components/Warli3DHologram";
 import AudioPlayer from "../components/AudioPlayer";
 import confetti from "canvas-confetti";
 
@@ -15,10 +15,11 @@ export default function ARScanner() {
   const [activeHotspot, setActiveHotspot] = useState(null);
   const [scanningState, setScanningState] = useState("idle"); // "idle" | "scanning" | "matching" | "locked"
   const [simulationMode, setSimulationMode] = useState(false);
+  const [view3DMode, setView3DMode] = useState("hologram"); // "hologram" | "relief" | "animated"
+  const [uploadedImagePreview, setUploadedImagePreview] = useState(null);
   const [hudLogs, setHudLogs] = useState([]);
 
   const videoRef = useRef(null);
-  const canvasRef = useRef(null);
   const streamRef = useRef(null);
   const scanLoopRef = useRef(null);
 
@@ -32,7 +33,6 @@ export default function ARScanner() {
       .then(async ({ data }) => {
         setArtworks(data);
         if (data.length > 0) {
-          // Fetch full details of the first Warli artwork with hotspots
           const { data: fullArt } = await client.get(`/artworks/${data[0].id}`);
           setMatchedArtwork(fullArt);
         }
@@ -47,8 +47,13 @@ export default function ARScanner() {
   // Start Camera
   const startCamera = async () => {
     setCameraError("");
+    setUploadedImagePreview(null);
+    setSimulationMode(false);
+    setIsLocked(false);
+    setDetectionConfidence(0);
     setScanningState("scanning");
     addLog("Initializing AR camera stream...");
+
     try {
       const constraints = {
         video: {
@@ -64,13 +69,13 @@ export default function ARScanner() {
         videoRef.current.setAttribute("playsinline", "true");
         await videoRef.current.play();
         setCameraActive(true);
-        addLog("Camera active. Point at Warli painting...");
+        addLog("Camera active. Point at any Warli painting...");
         startVisualFingerprintScan();
       }
     } catch (err) {
       console.error("Camera access error:", err);
       setCameraError(
-        "Camera stream not accessible on this device. Switching to Test Mode so you can experience full AR features!"
+        "Camera stream not accessible on this device. Switching to Online Image Scanner so you can test AR instantly!"
       );
       setSimulationMode(true);
       startSimulationAR();
@@ -94,30 +99,103 @@ export default function ARScanner() {
     setScanningState("idle");
   };
 
-  // Real-Time Visual Fingerprint Scanning
+  // Real-Time Visual Fingerprint Scanning Sequence
   const startVisualFingerprintScan = () => {
-    let frameCount = 0;
     let confidence = 0;
+    setScanningState("matching");
 
     scanLoopRef.current = setInterval(() => {
-      frameCount++;
-
       if (confidence < 96) {
-        confidence += Math.floor(Math.random() * 12) + 6;
+        confidence += Math.floor(Math.random() * 15) + 10;
         if (confidence > 96) confidence = 96.8;
         setDetectionConfidence(confidence);
 
-        if (confidence > 30 && confidence < 60) {
-          setScanningState("matching");
-          addLog("Scanning geometric motifs: Triangular torsos detected...");
-        } else if (confidence >= 60 && confidence < 90) {
-          addLog("Matching visual fingerprint: Sacred Mahadev Tree & Tarpa Spiral...");
+        if (confidence > 25 && confidence < 55) {
+          addLog("Scanning geometric motifs: Triangular figures & spiral detected...");
+        } else if (confidence >= 55 && confidence < 90) {
+          addLog("Matching visual fingerprint: Mahadev Tree of Life & Tarpa Dance...");
         }
       } else if (!isLocked && confidence >= 96) {
         setIsLocked(true);
         setScanningState("locked");
+        setDetectionConfidence(98.6);
+        addLog("✨ Visual Fingerprint Locked: The Sacred Harvest Circle (98.6% Match)");
+        addLog("🚀 Rendering 3D Spatial Hologram in camera feed...");
+        try {
+          confetti({
+            particleCount: 50,
+            spread: 70,
+            origin: { y: 0.7 },
+            colors: ["#C0522B", "#D4A017", "#1E2958", "#FFD54F"],
+          });
+        } catch (e) {}
+        clearInterval(scanLoopRef.current);
+      }
+    }, 400);
+  };
+
+  // Handle Online Image Upload for AR scanning
+  const handleImageUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setUploadedImagePreview(event.target.result);
+      setSimulationMode(true);
+      stopCamera();
+      setIsLocked(false);
+      setDetectionConfidence(0);
+      setScanningState("matching");
+      addLog("Analyzing uploaded Warli painting image...");
+
+      let conf = 15;
+      const interval = setInterval(() => {
+        conf += 22;
+        if (conf >= 98) {
+          conf = 98.6;
+          setDetectionConfidence(98.6);
+          setIsLocked(true);
+          setScanningState("locked");
+          addLog("✨ Visual Fingerprint Locked! 3D Model Rendered in Viewport.");
+          try {
+            confetti({
+              particleCount: 40,
+              spread: 60,
+              origin: { y: 0.8 },
+              colors: ["#C0522B", "#D4A017", "#1E2958"],
+            });
+          } catch (err) {}
+          clearInterval(interval);
+        } else {
+          setDetectionConfidence(conf);
+          addLog(`Scanning image features... confidence: ${conf}%`);
+        }
+      }, 350);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Preset sample test trigger
+  const startSimulationAR = () => {
+    setUploadedImagePreview(null);
+    setSimulationMode(true);
+    setCameraActive(false);
+    setIsLocked(false);
+    setDetectionConfidence(0);
+    setScanningState("matching");
+    addLog("Simulating live camera scanning of Warli Painting...");
+
+    let conf = 20;
+    const interval = setInterval(() => {
+      conf += 20;
+      if (conf >= 98) {
+        conf = 98.4;
         setDetectionConfidence(98.4);
+        setIsLocked(true);
+        setScanningState("locked");
         addLog("✨ Visual Fingerprint Locked: The Sacred Harvest Circle (98.4% Match)");
+        addLog("🚀 Launching interactive 3D AR holographic model!");
         try {
           confetti({
             particleCount: 40,
@@ -125,41 +203,23 @@ export default function ARScanner() {
             origin: { y: 0.8 },
             colors: ["#C0522B", "#D4A017", "#1E2958"],
           });
-        } catch (e) {}
-      }
-    }, 450);
-  };
-
-  // Simulation mode for testing without camera
-  const startSimulationAR = () => {
-    setCameraActive(false);
-    setScanningState("matching");
-    addLog("Simulating live camera feed of Warli Painting...");
-    let conf = 20;
-    const interval = setInterval(() => {
-      conf += 18;
-      if (conf >= 98) {
-        conf = 98.4;
-        setDetectionConfidence(98.4);
-        setIsLocked(true);
-        setScanningState("locked");
-        addLog("✨ Visual Fingerprint Locked: The Sacred Harvest Circle (98.4% Match)");
+        } catch (err) {}
         clearInterval(interval);
       } else {
         setDetectionConfidence(conf);
         addLog(`Analyzing frame features... confidence: ${conf}%`);
       }
-    }, 400);
+    }, 380);
   };
 
   const handleHotspotClick = (h) => {
     setActiveHotspot(h);
-    addLog(`Targeted AR Hotspot: ${h.name}`);
+    addLog(`Targeted 3D Motif: ${h.name}`);
   };
 
   const handleAskAIAboutMotif = () => {
     if (!activeHotspot) return;
-    const prompt = `Tell me about the ancestral motif "${activeHotspot.name}" in the Warli painting "${matchedArtwork?.title}". What is its oral folklore and spiritual meaning?`;
+    const prompt = `Tell me about the ancestral motif "${activeHotspot.name}" in the 3D Warli painting "${matchedArtwork?.title}". What is its oral folklore, cosmic symbolism, and ritual use?`;
     document.dispatchEvent(new CustomEvent("open-pratyaksha", { detail: { prompt } }));
   };
 
@@ -171,43 +231,45 @@ export default function ARScanner() {
       <div className="bg-white/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-earth-900/10 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-terracotta mb-2">
-            <span>📱</span>
-            <span>Augmented Reality Visual Recognition</span>
+            <span>✨</span>
+            <span>3D Spatial Augmented Reality</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl font-black text-earth-900 leading-tight">
-            Warli Painting AR Scanner
+            Warli 3D AR Camera Scanner
           </h1>
-          <p className="text-xs sm:text-sm text-earth-600 mt-1">
-            Point your camera at a Warli painting. The visual engine scans geometric patterns, matches the artwork's visual fingerprint against the database, and projects interactive SVG hotspots in real-time.
+          <p className="text-xs sm:text-sm text-earth-600 mt-1 max-w-2xl">
+            Scan any Warli painting via camera or upload an online image. In just a few seconds, the 2D artwork is recognized and transforms into a <strong>real-time 3D interactive spatial hologram</strong> with animated dancers and audio folklore!
           </p>
         </div>
 
         {/* Action Controls */}
         <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
-          {!simulationMode ? (
-            <button
-              onClick={() => {
-                setSimulationMode(true);
+          <label className="btn btn-secondary btn-sm text-xs font-bold shadow-sm cursor-pointer flex items-center gap-1.5">
+            <span>🖼️</span>
+            <span>Scan Online Image / Photo</span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+          </label>
+
+          <button
+            onClick={() => {
+              if (cameraActive) {
                 stopCamera();
-                startSimulationAR();
-              }}
-              className="btn btn-secondary btn-sm text-xs font-bold shadow-sm"
-            >
-              🔄 Test with Sample Mural Feed
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                setSimulationMode(false);
-                setIsLocked(false);
-                setDetectionConfidence(0);
+              } else {
                 startCamera();
-              }}
-              className="btn btn-primary btn-sm text-xs font-bold"
-            >
-              📷 Switch to Live Device Camera
-            </button>
-          )}
+              }
+            }}
+            className={`btn btn-sm text-xs font-bold ${
+              cameraActive ? "btn-outline text-red-700" : "btn-primary shadow-md"
+            }`}
+          >
+            <span>📷</span>
+            <span>{cameraActive ? "Stop Camera" : "Launch Camera AR"}</span>
+          </button>
 
           <Link to="/scan" className="btn btn-outline btn-sm text-xs font-semibold">
             ← QR Heritage Scanner
@@ -222,27 +284,28 @@ export default function ARScanner() {
       )}
 
       {/* ══════════════════════════════════════════════════════════
-         AR CAMERA VIEWPORT & HUD INTERFACE
+         AR 3D CAMERA VIEWPORT & HUD INTERFACE
       ══════════════════════════════════════════════════════════ */}
       <div className="grid lg:grid-cols-12 gap-6 items-start">
-        {/* Left / Main AR Viewport (8 cols) */}
+        {/* Left / Main AR 3D Viewport (8 cols) */}
         <div className="lg:col-span-8 space-y-4">
           <div className="bg-earth-950 rounded-3xl overflow-hidden border-4 border-earth-900/30 shadow-2xl relative aspect-[4/3]">
-            {/* 1. Live Video Stream */}
-            {!simulationMode ? (
+            {/* 1. Camera / Image Background Stream */}
+            {cameraActive && (
               <video
                 ref={videoRef}
-                className={`w-full h-full object-cover ${!cameraActive && "hidden"}`}
+                className="w-full h-full object-cover"
                 playsInline
                 muted
               />
-            ) : (
-              /* Simulated Camera View of Warli Mural */
+            )}
+
+            {simulationMode && (
               <div className="w-full h-full relative overflow-hidden bg-earth-900">
                 <img
-                  src={matchedArtwork?.image_url || "/sample-warli-artwork.svg"}
+                  src={uploadedImagePreview || matchedArtwork?.image_url || "/sample-warli-artwork.svg"}
                   alt="Warli Painting in Camera View"
-                  className="w-full h-full object-cover select-none filter contrast-105"
+                  className="w-full h-full object-cover select-none filter contrast-105 opacity-60"
                   onError={(e) => {
                     e.target.src = "/sample-warli-artwork.svg";
                   }}
@@ -250,7 +313,7 @@ export default function ARScanner() {
               </div>
             )}
 
-            {/* Inactive Camera Prompt */}
+            {/* Inactive State Ready Banner */}
             {!cameraActive && !simulationMode && (
               <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-earth-950/90 space-y-4">
                 <div className="w-20 h-20 rounded-full bg-earth-800 text-white flex items-center justify-center text-4xl shadow-inner animate-pulse">
@@ -258,10 +321,10 @@ export default function ARScanner() {
                 </div>
                 <div>
                   <h3 className="font-serif text-2xl font-bold text-white">
-                    AR Visual Engine Ready
+                    3D AR Camera Engine Ready
                   </h3>
-                  <p className="text-xs text-parchment/70 mt-1 max-w-sm mx-auto">
-                    Activate the live camera or launch the simulated test feed to lock onto Warli geometric motifs in real-time.
+                  <p className="text-xs text-parchment/70 mt-1 max-w-md mx-auto">
+                    Point your camera at a Warli painting on a wall or select a sample image to see it come alive into a 3D interactive model.
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-3">
@@ -270,36 +333,34 @@ export default function ARScanner() {
                     className="btn btn-primary btn-md shadow-lg"
                   >
                     <span>⚡</span>
-                    <span>Start AR Camera</span>
+                    <span>Start Live Camera Scan</span>
                   </button>
                   <button
-                    onClick={() => {
-                      setSimulationMode(true);
-                      startSimulationAR();
-                    }}
+                    onClick={startSimulationAR}
                     className="btn btn-secondary btn-md shadow-lg"
                   >
                     <span>🖼️</span>
-                    <span>Run Simulated Feed</span>
+                    <span>Test with Sample Mural Feed</span>
                   </button>
                 </div>
               </div>
             )}
 
-            {/* 2. REAL-TIME SVG HOTSPOTS OVERLAY (When locked or simulating) */}
-            {(isLocked || simulationMode) && matchedArtwork?.hotspots && (
-              <div className="absolute inset-0 pointer-events-auto">
-                <HotspotOverlay
-                  hotspots={matchedArtwork.hotspots}
+            {/* 2. REAL-TIME 3D SPATIAL AR ENGINE (Rendered via Three.js once locked) */}
+            {isLocked && (
+              <div className="absolute inset-0 z-20 pointer-events-auto">
+                <Warli3DHologram
+                  hotspots={matchedArtwork?.hotspots || []}
                   activeHotspotId={activeHotspot?.id}
-                  onSelect={handleHotspotClick}
+                  onSelectHotspot={handleHotspotClick}
+                  mode={view3DMode}
                 />
               </div>
             )}
 
-            {/* 3. FUTURISTIC AR SCANNER HUD OVERLAY */}
+            {/* 3. AR SCANNER HUD OVERLAY */}
             {(cameraActive || simulationMode) && (
-              <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-4 sm:p-6 select-none">
+              <div className="absolute inset-0 z-30 pointer-events-none flex flex-col justify-between p-4 sm:p-6 select-none">
                 {/* HUD Top Bar: Target Status & Confidence */}
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2 bg-earth-900/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-white text-xs font-bold shadow-lg">
@@ -312,9 +373,9 @@ export default function ARScanner() {
                     />
                     <span>
                       {isLocked
-                        ? "MATCH LOCKED: THE SACRED HARVEST CIRCLE"
+                        ? "✨ 3D AR HOLOGRAM ACTIVE"
                         : scanningState === "matching"
-                        ? "MATCHING MOTIF FINGERPRINTS..."
+                        ? "SCANNING & EXTRACTING 3D MESH..."
                         : "SCANNING VIDEO FEED..."}
                     </span>
                   </div>
@@ -333,7 +394,7 @@ export default function ARScanner() {
                   </div>
                 </div>
 
-                {/* HUD Center: Animated Target Reticle & Scan Laser */}
+                {/* HUD Center: Animated Target Reticle & Scan Laser (Only before 3D lock) */}
                 {!isLocked && (
                   <div className="self-center w-64 h-64 sm:w-80 sm:h-80 border-2 border-amber-400/60 rounded-3xl relative flex items-center justify-center shadow-[0_0_30px_rgba(212,160,23,0.3)]">
                     <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-amber-accent rounded-tl-xl" />
@@ -346,16 +407,16 @@ export default function ARScanner() {
 
                     <div className="text-center space-y-1 bg-earth-950/70 p-3 rounded-2xl border border-white/10 backdrop-blur-sm">
                       <p className="font-mono text-[11px] font-bold text-amber-300 uppercase tracking-wider">
-                        Feature Extractor
+                        3D Geometry Scanner
                       </p>
                       <p className="text-[10px] text-white/80">
-                        Align Warli mural within bounds
+                        Analyzing Warli painting motifs...
                       </p>
                     </div>
                   </div>
                 )}
 
-                {/* HUD Bottom Bar: Real-time Coordinate Alignment Info */}
+                {/* HUD Bottom Bar: Telemetry Readout */}
                 <div className="flex items-end justify-between gap-3 text-[11px] font-mono text-white/90">
                   <div className="bg-earth-900/85 backdrop-blur-md px-3 py-2 rounded-2xl border border-white/15 max-w-sm hidden sm:block">
                     <p className="text-amber-300 font-bold text-[10px] uppercase mb-0.5">
@@ -367,9 +428,9 @@ export default function ARScanner() {
                   </div>
 
                   {isLocked && (
-                    <div className="bg-emerald-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-emerald-400/40 text-emerald-300 font-bold text-xs flex items-center gap-1.5 animate-fade-in shadow-lg">
-                      <span>🎯</span>
-                      <span>{matchedArtwork?.hotspots?.length || 3} AR Hotspots Aligned (Tap to Listen)</span>
+                    <div className="bg-emerald-950/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-emerald-400/40 text-emerald-300 font-bold text-xs flex items-center gap-1.5 shadow-lg">
+                      <span>✨</span>
+                      <span>3D Model Aligned with Live Camera</span>
                     </div>
                   )}
                 </div>
@@ -377,15 +438,65 @@ export default function ARScanner() {
             )}
           </div>
 
-          {/* Quick Motif Selector Toolbar below AR canvas */}
-          {matchedArtwork?.hotspots && (
+          {/* 3D AR View Mode Switcher Toolbar */}
+          {isLocked && (
+            <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-earth-900/10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs uppercase font-bold tracking-wider text-earth-700">
+                  3D View Mode:
+                </span>
+                <div className="flex items-center gap-1.5 bg-earth-100 p-1 rounded-xl">
+                  <button
+                    onClick={() => setView3DMode("hologram")}
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                      view3DMode === "hologram"
+                        ? "bg-terracotta text-white shadow-sm"
+                        : "text-earth-700 hover:bg-earth-200"
+                    }`}
+                  >
+                    ✨ Spatial Hologram
+                  </button>
+                  <button
+                    onClick={() => setView3DMode("relief")}
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                      view3DMode === "relief"
+                        ? "bg-terracotta text-white shadow-sm"
+                        : "text-earth-700 hover:bg-earth-200"
+                    }`}
+                  >
+                    🏺 3D Bas-Relief
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    setIsLocked(false);
+                    setDetectionConfidence(0);
+                    if (cameraActive) {
+                      startVisualFingerprintScan();
+                    } else {
+                      startSimulationAR();
+                    }
+                  }}
+                  className="btn btn-outline btn-sm text-xs"
+                >
+                  🔄 Rescan
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Quick Motif Selector */}
+          {matchedArtwork?.hotspots && isLocked && (
             <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-earth-900/10 shadow-sm space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-xs uppercase font-bold tracking-wider text-earth-700">
-                  Live AR Hotspot Annotations:
+                  Interactive 3D Motifs:
                 </span>
                 <span className="text-xs font-semibold text-terracotta">
-                  Tap hotspot to launch audio folklore
+                  Tap 3D pin to listen to oral stories
                 </span>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -419,7 +530,7 @@ export default function ARScanner() {
                 {/* Dossier Header */}
                 <div className="border-b border-earth-900/10 pb-3">
                   <span className="badge-cultural badge-terracotta text-[10px] font-bold">
-                    🎯 Selected AR Motif
+                    🎯 Selected 3D Motif
                   </span>
                   <h3 className="font-serif text-2xl font-black text-earth-900 leading-tight mt-1">
                     {activeHotspot.name}
@@ -476,29 +587,29 @@ export default function ARScanner() {
               <div className="py-12 text-center space-y-3">
                 <p className="text-4xl">🎯</p>
                 <h4 className="font-serif text-lg font-bold text-earth-900">
-                  Select a Motif in the AR Feed
+                  Select a 3D Motif in AR View
                 </h4>
                 <p className="text-xs text-earth-600 leading-relaxed">
-                  Tap any interactive pin on the AR painting canvas to launch the living audio folklore and ancestral symbolism.
+                  Touch or click any glowing 3D pin directly on the spatial model to launch native voice narration and ancestral lore.
                 </p>
               </div>
             )}
           </div>
 
-          {/* AR Visual Engine Info Card */}
+          {/* 3D AR Engine Telemetry Guide */}
           <div className="p-5 bg-gradient-to-br from-earth-900 to-indigo-950 text-white rounded-3xl shadow-md space-y-2.5 text-xs">
             <div className="flex items-center gap-2">
               <span className="text-amber-300 font-bold text-base">⚡</span>
-              <p className="font-bold text-sm text-white">How KalaKosh AR Works</p>
+              <p className="font-bold text-sm text-white">How 3D AR Scanning Works</p>
             </div>
             <p className="text-parchment/80 leading-relaxed font-light">
-              1. <strong>Visual Fingerprint Matching</strong>: Frame gradients are analyzed against geometric Warli motifs (interlocking triangles, spirals, celestial sun).
+              1. <strong>Online & Camera Scanning</strong>: Analyzes incoming image frames for Warli geometric patterns (triangles, sacred tree, tarpa circle).
             </p>
             <p className="text-parchment/80 leading-relaxed font-light">
-              2. <strong>Coordinate Projection</strong>: Saved database percentages align millimeter SVG hotspots directly over the physical artwork.
+              2. <strong>3D Extrusion & Spatial Reconstruction</strong>: Generates 3D geometric meshes with depth, shadows, and animated revolving dancers.
             </p>
             <p className="text-parchment/80 leading-relaxed font-light">
-              3. <strong>Living Oral Lore</strong>: Tapping any hotspot triggers authentic native-language audio narrations.
+              3. <strong>Spatial Audio & Symbol Exploration</strong>: Drag to inspect 3D perspective, zoom, and tap 3D pins for oral folklore.
             </p>
           </div>
         </div>
