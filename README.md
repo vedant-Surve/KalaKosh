@@ -51,7 +51,8 @@ Run the API:
 uvicorn app.main:app --reload --port 8000
 ```
 
-Interactive API docs: http://localhost:8000/docs
+Interactive API docs (local): http://localhost:8000/docs
+Production Backend: https://kalakosh-2.onrender.com
 
 ## 2. Frontend setup
 
@@ -60,7 +61,7 @@ cd frontend
 npm install
 
 cp .env.example .env
-# defaults to http://localhost:8000, adjust if needed
+# configured to https://kalakosh-2.onrender.com by default
 ```
 
 Run the dev server:
